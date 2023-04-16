@@ -1,0 +1,9 @@
+{
+  "name": "tianwen",
+  "version": "1.0.0",
+  "description": "天问-开源项目",
+  "main": "index.js",
+  "repository": "https://github.com/bysking/tianwen.git",
+  "author": "bysking <bysking@qq.com>",
+  "license": "MIT"
+}
