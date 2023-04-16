@@ -3,5 +3,6 @@
   "version": "1.0.0",
   "description": "天问服务端",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "author": "bysking@qq.com"
 }
