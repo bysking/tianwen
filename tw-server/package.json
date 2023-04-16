@@ -1,0 +1,7 @@
+{
+  "name": "tw-server",
+  "version": "1.0.0",
+  "description": "天问服务端",
+  "main": "index.js",
+  "license": "MIT"
+}
