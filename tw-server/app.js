@@ -1,5 +1,7 @@
 const Koa = require("koa");
 const bodyParser = require("koa-bodyparser");
+require("./db");
+
 const app = new Koa();
 app.use(bodyParser()); // 解析request的body
 
