@@ -32,4 +32,27 @@ module.exports = (router) => {
     };
     ctx.response.body = result;
   });
+
+  router.post("/login", async (ctx, next) => {
+    const { username, password } = ctx.request.body;
+    console.log(ctx.request.body);
+    const data = (await User.findOne({ username })) || {};
+
+    if (data.password === password) {
+      const result = {
+        code: 200,
+        data,
+        msg: "ok",
+      };
+      ctx.response.body = result;
+      return;
+    } else {
+      const result = {
+        code: 200,
+        data: {},
+        msg: "用户名或者密码错误",
+      };
+      ctx.response.body = result;
+    }
+  });
 };
