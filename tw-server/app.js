@@ -1,8 +1,27 @@
 const Koa = require("koa");
 const bodyParser = require("koa-bodyparser");
+const cors = require("koa2-cors");
 require("./db");
 
 const app = new Koa();
+
+// 处理跨域
+app.use(
+  cors({
+    exposeHeaders: ["WWW-Authenticate", "Server-Authorization", "Date"],
+    maxAge: 100,
+    credentials: true,
+    allowMethods: ["GET", "POST", "OPTIONS"],
+    allowHeaders: [
+      "Content-Type",
+      "Authorization",
+      "Accept",
+      "X-Custom-Header",
+      "anonymous",
+    ],
+  })
+);
+
 app.use(bodyParser()); // 解析request的body
 
 const router = require("./router");
