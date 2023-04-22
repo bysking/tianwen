@@ -4,5 +4,17 @@
   "description": "天问服务端",
   "main": "index.js",
   "license": "MIT",
-  "author": "bysking@qq.com"
+  "author": "bysking@qq.com",
+  "dependencies": {
+    "install": "^0.13.0",
+    "koa": "^2.14.2",
+    "koa-bodyparser": "^4.4.0",
+    "koa-router": "^12.0.0"
+  },
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
 }
