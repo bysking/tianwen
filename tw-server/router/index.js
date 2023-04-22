@@ -7,15 +7,4 @@ const router = new Router({
 require("./login")(router); // 注册模块
 require("./module-a")(router); // 注册模块
 
-router.get("/hello", async (ctx, next) => {
-  await new Promise((res) => {
-    setTimeout(async () => {
-      res();
-    }, 1000);
-  });
-
-  await next();
-  ctx.res.end("111");
-});
-
 module.exports = router;

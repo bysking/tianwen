@@ -4,6 +4,7 @@ const cors = require("koa2-cors");
 require("./db");
 
 const app = new Koa();
+app.use(bodyParser()); // 解析request的body
 
 // 处理跨域
 app.use(
@@ -22,10 +23,7 @@ app.use(
   })
 );
 
-app.use(bodyParser()); // 解析request的body
-
 const router = require("./router");
-
 app.use(router.routes());
 
 // 在端口8081监听:
