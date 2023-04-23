@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const db = mongoose.connect("mongodb://localhost/bysking_database");
+const db = mongoose.connect("mongodb://localhost/bysking-database");
 
 db.then(() => {
   console.error("****数据库连接成功****");
