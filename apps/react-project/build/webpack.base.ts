@@ -34,6 +34,7 @@ const baseConfig: Configuration = {
     path: path.join(__dirname, "../dist"), // 打包结果输出路径
     clean: true, // webpack4需要配置clean-webpack-plugin来删除dist文件,webpack5内置了
     publicPath: "/", // 打包后文件的公共前缀路径
+    assetModuleFilename: "images/[hash][ext][query]", // 这里自定义输出文件名的方式是，将某些资源发送到指定目录
   },
   // loader 配置
   module: {
@@ -67,6 +68,18 @@ const baseConfig: Configuration = {
       {
         test: sassRegex,
         use: [...styleLoadersArray, "sass-loader"],
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/i, // 匹配图片文件
+        type: "asset", // type选择asset
+        parser: {
+          dataUrlCondition: {
+            maxSize: 20 * 1024, // 小于10kb转base64
+          },
+        },
+        generator: {
+          filename: "static/images/[hash][ext][query]", // 文件输出目录和命名
+        },
       },
     ],
   },
