@@ -9,8 +9,11 @@ const cssRegex = /\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const lessRegex = /\.less$/;
 
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const isDev = process.env.NODE_ENV === "development"; // 是否是开发模式
+
 const styleLoadersArray = [
-  "style-loader",
+  isDev ? "style-loader" : MiniCssExtractPlugin.loader, // // 开发环境使用style-looader,打包模式抽离css
   {
     loader: "css-loader",
     options: {
