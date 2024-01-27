@@ -2,6 +2,12 @@ import { Configuration, DefinePlugin } from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 
 const path = require("path");
+import * as dotenv from "dotenv";
+
+// 加载配置文件
+const envConfig = dotenv.config({
+  path: path.resolve(__dirname, "../env/.env." + process.env.BASE_ENV),
+});
 
 const baseConfig: Configuration = {
   entry: path.join(__dirname, "../src/index.tsx"), // 入口文件
@@ -51,6 +57,7 @@ const baseConfig: Configuration = {
       nodeModules: path.resolve(__dirname, "../node_modules"),
     }),
     new DefinePlugin({
+      "process.env": JSON.stringify(envConfig.parsed),
       "process.env.BASE_ENV": JSON.stringify(process.env.BASE_ENV),
       "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
     }),
