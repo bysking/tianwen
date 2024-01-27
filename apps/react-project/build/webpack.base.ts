@@ -1,5 +1,6 @@
 import { Configuration, DefinePlugin } from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import WebpackBar from "webpackbar";
 
 const path = require("path");
 import * as dotenv from "dotenv";
@@ -123,6 +124,11 @@ const baseConfig: Configuration = {
       "process.env": JSON.stringify(envConfig.parsed),
       "process.env.BASE_ENV": JSON.stringify(process.env.BASE_ENV),
       "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+    }),
+    new WebpackBar({
+      color: "#85d", // 默认green，进度条颜色支持HEX
+      basic: false, // 默认true，启用一个简单的日志报告器
+      profile: false, // 默认false，启用探查器。
     }),
   ],
 };
