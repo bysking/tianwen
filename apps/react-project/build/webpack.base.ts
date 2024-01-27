@@ -4,6 +4,23 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 const path = require("path");
 import * as dotenv from "dotenv";
 
+const cssRegex = /\.css$/;
+const sassRegex = /\.(scss|sass)$/;
+const lessRegex = /\.less$/;
+
+const styleLoadersArray = [
+  "style-loader",
+  {
+    loader: "css-loader",
+    options: {
+      modules: {
+        localIdentName: "[path][name]__[local]--[hash:5]",
+      },
+    },
+  },
+  "postcss-loader",
+];
+
 // 加载配置文件
 const envConfig = dotenv.config({
   path: path.resolve(__dirname, "../env/.env." + process.env.BASE_ENV),
@@ -28,8 +45,28 @@ const baseConfig: Configuration = {
         },
       },
       {
-        test: /.css$/, //匹配 css 文件
-        use: ["style-loader", "css-loader"],
+        test: cssRegex, //匹配 css 文件
+        use: styleLoadersArray,
+      },
+      {
+        test: lessRegex,
+        use: [
+          ...styleLoadersArray,
+          {
+            loader: "less-loader",
+            options: {
+              lessOptions: {
+                // 如果要在less中写类型js的语法，需要加这一个配置
+                javascriptEnabled: true,
+                modules: true,
+              },
+            },
+          },
+        ],
+      },
+      {
+        test: sassRegex,
+        use: [...styleLoadersArray, "sass-loader"],
       },
     ],
   },
