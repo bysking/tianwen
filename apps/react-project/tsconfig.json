@@ -9,12 +9,18 @@
     "jsx": "react-jsx", // 这里改成react-jsx，就不需要在tsx文件中手动引入React了
     "typeRoots": ["./typings/*.d.ts", "node_modules/@types"],
     "resolveJsonModule": true,
-    "experimentalDecorators": true // 开启装饰器使用
+    "experimentalDecorators": true, // 开启装饰器使用
+    "allowJs": false,
+    "noEmit": true,
+    "noImplicitAny": false,
+
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
 
   },
-  "include": ["./src", "./typings/*.d.ts"],
-  "baseUrl": ".",
-  "paths": {
-    "@/*": ["src/*"]
-  },
+  "include": ["./src/*", "./src/**/*.ts", "./src/**/*.tsx", "./typings/*.d.ts"],
+  "exclude": ["node_modules", "dist"],
+  "no-shadow": ["error", { "builtinGlobals": false, "hoist": "functions", "allow": [], "ignoreOnInitialization": false }],
 }
