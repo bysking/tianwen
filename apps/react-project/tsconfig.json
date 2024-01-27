@@ -6,7 +6,8 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
-    "jsx": "react-jsx" // 这里改成react-jsx，就不需要在tsx文件中手动引入React了
+    "jsx": "react-jsx", // 这里改成react-jsx，就不需要在tsx文件中手动引入React了
+    "typeRoots": ["./typings/*.d.ts", "node_modules/@types"],
   },
-  "include": ["./src"]
+  "include": ["./src", "./typings/*.d.ts"]
 }
