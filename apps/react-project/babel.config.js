@@ -20,4 +20,7 @@ module.exports = {
     ["@babel/preset-react", { runtime: "automatic" }],
     "@babel/preset-typescript",
   ],
+  plugins: [["@babel/plugin-proposal-decorators", { legacy: true }]].filter(
+    Boolean
+  ), // 过滤空值
 };

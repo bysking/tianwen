@@ -70,7 +70,7 @@ const baseConfig: Configuration = {
         use: [...styleLoadersArray, "sass-loader"],
       },
       {
-        test: /\.(png|jpe?g|gif|svg)$/i, // 匹配图片文件
+        test: /\.(png|jpe?g|gif|svg|woff2?|eot|ttf|otf|mp4|webm|ogg|mp3|wav|flac|aac)$/i, // 匹配文件
         type: "asset", // type选择asset
         parser: {
           dataUrlCondition: {
@@ -79,6 +79,15 @@ const baseConfig: Configuration = {
         },
         generator: {
           filename: "static/images/[hash][ext][query]", // 文件输出目录和命名
+        },
+      },
+      {
+        // 匹配json文件
+        test: /\.json$/,
+        type: "asset/resource", // 将json文件视为文件类型
+        generator: {
+          // 这里专门针对json文件的处理
+          filename: "static/json/[name].[hash][ext][query]",
         },
       },
     ],
