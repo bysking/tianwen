@@ -42,9 +42,11 @@ const baseConfig: Configuration = {
     rules: [
       {
         test: /.(ts|tsx)$/, // 匹配.ts, tsx文件
-        use: {
-          loader: "babel-loader",
-        },
+        // use: {
+        //   loader: "babel-loader",
+        // },
+        use: ["thread-loader", "babel-loader"],
+        exclude: /node_modules/, // 缩小构建目标
       },
       {
         test: cssRegex, //匹配 css 文件
@@ -131,6 +133,9 @@ const baseConfig: Configuration = {
       profile: false, // 默认false，启用探查器。
     }),
   ],
+  cache: {
+    type: "filesystem", // 使用文件缓存
+  },
 };
 
 export default baseConfig;
