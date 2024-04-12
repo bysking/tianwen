@@ -1,7 +1,7 @@
 export default [
   {
     path: '/login',
-    layout: true,
+    layout: false,
     component: './user/Login',
   },
   {
