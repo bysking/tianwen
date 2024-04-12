@@ -12,7 +12,7 @@ export default [
     path: '/welcome',
     name: '欢迎使用',
     icon: 'icon-huanying1',
-    access: 'canLogin',
+    access: 'hasLogin',
     component: './Welcome',
   },
   {
