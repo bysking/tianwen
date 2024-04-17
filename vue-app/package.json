@@ -1,0 +1,18 @@
+{
+  "private": true,
+  "author": "bysking <pengxu.chen@viatris.com>",
+  "scripts": {
+    "dev": "umi dev",
+    "build": "umi build",
+    "postinstall": "umi setup",
+    "start": "npm run dev"
+  },
+  "dependencies": {
+    "vue": "^3.2.47",
+    "umi": "^4.1.9"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.3",
+    "@umijs/preset-vue": "^4.1.9"
+  }
+}
