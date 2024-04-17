@@ -30,7 +30,7 @@ export const qiankun = {
     window.qiankunProps = props;
   },
   // 应用卸载之后触发
-  async unmount(prop: any) {
+  async unmount(props: any) {
     console.log("app1 unmount", props);
   },
 };

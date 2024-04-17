@@ -50,19 +50,11 @@ export const qiankun = async () => {
         name: 'app1',
         entry: '//localhost:7000/',
       },
-      {
-        name: 'app2',
-        entry: '//localhost:7002/',
-      },
     ],
     routes: [
       {
         path: '/app1',
         microApp: 'app1',
-      },
-      {
-        path: '/app2',
-        microApp: 'app2',
       },
     ],
     lifeCycles: {

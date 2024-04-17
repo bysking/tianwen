@@ -93,11 +93,6 @@ const routes = [
         path: '/app1/*',
         // microApp: 'app1',
       },
-      {
-        name: 'app2-layout',
-        path: '/app2/*',
-        // microApp: 'app2',
-      },
     ],
   },
 ];
