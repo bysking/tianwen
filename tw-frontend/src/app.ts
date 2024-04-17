@@ -83,5 +83,14 @@ export const qiankun = async () => {
         console.log('afterMount', props);
       },
     },
+    prefetch: false,
+
+    // 子应用的html入口字符串
+    getTemplate: (tpl: string): string => {
+      return tpl;
+    },
+
+    // 可以排除CDN资源、字体文件、图片等静态资源的请求,减轻qiankun的工作负担。
+    excludeAssetFilter: (url: string) => url.includes('monaco-editor'),
   };
 };

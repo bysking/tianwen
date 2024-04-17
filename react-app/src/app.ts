@@ -15,3 +15,22 @@ export const layout = () => {
     },
   };
 };
+
+// bysking:todo 添加基座的props类型定义
+export const qiankun = {
+  // 应用加载之前
+  async bootstrap(props: any) {
+    // console.log('主应用传给微应用的 props：', props);
+    console.log("app1 bootstrap", props);
+  },
+  // 应用 render 之前触发
+  async mount(props: any) {
+    console.log("app1 mount", props);
+    // 若需要全局使用，可以绑定到 window 上
+    window.qiankunProps = props;
+  },
+  // 应用卸载之后触发
+  async unmount(prop: any) {
+    console.log("app1 unmount", props);
+  },
+};
