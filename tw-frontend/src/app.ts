@@ -41,3 +41,47 @@ export async function getInitialState(): Promise<{ name: string }> {
 //     },
 //   };
 // };
+
+// src/app.ts
+export const qiankun = async () => {
+  return {
+    apps: [
+      {
+        name: 'app1',
+        entry: '//localhost:7000/',
+      },
+      {
+        name: 'app2',
+        entry: '//localhost:7002/',
+      },
+    ],
+    routes: [
+      {
+        path: '/app1',
+        microApp: 'app1',
+      },
+      {
+        path: '/app2',
+        microApp: 'app2',
+      },
+    ],
+    lifeCycles: {
+      // 只会触发一次，加载时间较长
+      // props 为当前正在加载的 子应用的配置信息
+      beforeLoad: (props: unknown) => {
+        // 自定义 loading
+        console.log('beforeLoad...');
+      },
+      beforeMount: (props: unknown) => {
+        console.log('beforeMount', props);
+      },
+      afterMount: (props: unknown) => {
+        // 删除 loading
+        console.log('afterMount', props);
+      },
+      afterUnmount: (props: unknown) => {
+        console.log('afterMount', props);
+      },
+    },
+  };
+};

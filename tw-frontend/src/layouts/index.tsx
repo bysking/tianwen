@@ -57,11 +57,56 @@ const layoutSettings = {
   // ],
 };
 
+const routes = [
+  {
+    path: '/welcome',
+    name: '欢迎',
+    component: './Welcome',
+  },
+  {
+    path: '/admin',
+    name: '管理页2',
+    routes: [
+      {
+        path: '/admin/sub-page1',
+        name: '一级页面',
+        component: './Welcome',
+      },
+      {
+        path: '/admin/sub-page2',
+        name: '二级页面',
+        component: './Welcome',
+      },
+      {
+        path: '/admin/sub-page3',
+        name: '三级页面',
+        component: './Welcome',
+      },
+    ],
+  },
+  {
+    name: '子应用',
+    path: '/app1',
+    routes: [
+      {
+        name: 'app1-layout',
+        path: '/app1/*',
+        // microApp: 'app1',
+      },
+      {
+        name: 'app2-layout',
+        path: '/app2/*',
+        // microApp: 'app2',
+      },
+    ],
+  },
+];
+
 const Layout = (props: typeProps) => {
   return (
     <div>
       <ProLayout
-        // route={route}
+        route={routes}
         // location={{
         //   pathname: '/',
         // }}
@@ -84,35 +129,7 @@ const Layout = (props: typeProps) => {
         menu={{
           request: async () => {
             // 动态请求的菜单
-            return [
-              {
-                path: '/welcome',
-                name: '欢迎',
-                component: './Welcome',
-              },
-              {
-                path: '/admin',
-                name: '管理页',
-                component: './Admin',
-                routes: [
-                  {
-                    path: '/admin/sub-page1',
-                    name: '一级页面',
-                    component: './Welcome',
-                  },
-                  {
-                    path: '/admin/sub-page2',
-                    name: '二级页面',
-                    component: './Welcome',
-                  },
-                  {
-                    path: '/admin/sub-page3',
-                    name: '三级页面',
-                    component: './Welcome',
-                  },
-                ],
-              },
-            ];
+            return routes;
           },
         }}
         //   onPageChange={onPageChange}

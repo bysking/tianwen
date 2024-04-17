@@ -1,8 +1,9 @@
 {
+  "name": "react-app",
   "private": true,
   "author": "bysking <pengxu.chen@viatris.com>",
   "scripts": {
-    "dev": "max dev",
+    "dev": "PORT=7000 max dev",
     "build": "max build",
     "format": "prettier --cache --write .",
     "prepare": "husky",

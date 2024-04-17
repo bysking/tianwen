@@ -10,4 +10,7 @@ export default defineConfig({
   layout: false,
   routes,
   npmClient: 'pnpm',
+  qiankun: {
+    master: {},
+  },
 });
