@@ -1,3 +1,4 @@
+import { getMockApp } from '@/pages/mockapp';
 import { ProLayout } from '@ant-design/pro-components';
 import { Link, Outlet } from '@umijs/max';
 
@@ -56,6 +57,12 @@ const layoutSettings = {
   //   },
   // ],
 };
+const mockAppData = getMockApp();
+const mockRouteList = [];
+
+if (mockAppData) {
+  mockRouteList.push(mockAppData);
+}
 
 const routes = [
   {
@@ -91,10 +98,10 @@ const routes = [
       {
         name: 'app1-layout',
         path: '/app1/*',
-        // microApp: 'app1',
       },
     ],
   },
+  ...mockRouteList,
 ];
 
 const Layout = (props: typeProps) => {

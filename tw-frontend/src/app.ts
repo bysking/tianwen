@@ -1,6 +1,7 @@
 // 运行时配置
 
 import { useState } from 'react';
+import { getMockApp } from './pages/mockapp';
 
 // 全局初始化数据配置，用于 Layout 用户信息和权限初始化
 // 更多信息见文档：https://umijs.org/docs/api/runtime-config#getinitialstate
@@ -46,18 +47,22 @@ export async function getInitialState(): Promise<{ name: string }> {
 
 // src/app.ts
 export const qiankun = async () => {
+  const mockAppData = getMockApp();
+
   return {
     apps: [
       {
         name: 'app1',
         entry: '//localhost:7000/',
       },
+      mockAppData,
     ],
     routes: [
       {
         path: '/app1',
         microApp: 'app1',
       },
+      mockAppData,
     ],
     lifeCycles: {
       // 只会触发一次，加载时间较长
