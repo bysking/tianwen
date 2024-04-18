@@ -8,7 +8,7 @@ export async function getInitialState(): Promise<{ name: string }> {
 
 export const layout = () => {
   return {
-    pure: true, // bysking:todo 本地环境设置false, 内嵌乾坤则设置true
+    pure: window.__POWERED_BY_QIANKUN__, // 本地环境设置false, 内嵌乾坤则设置true
     logo: 'https://img.alicdn.com/tfs/TB1YHEpwUT1gK0jSZFhXXaAtVXa-28-27.svg',
     menu: {
       locale: false,
