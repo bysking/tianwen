@@ -53,16 +53,16 @@ export const qiankun = async () => {
     apps: [
       {
         name: 'app1',
-        entry: '//localhost:7000/',
+        entry: '//localhost:8008/',
       },
-      mockAppData,
+      // mockAppData,
     ],
     routes: [
       {
         path: '/app1',
         microApp: 'app1',
       },
-      mockAppData,
+      // mockAppData,
     ],
     lifeCycles: {
       // 只会触发一次，加载时间较长

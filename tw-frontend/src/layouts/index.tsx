@@ -96,7 +96,7 @@ const routes = [
     path: '/app1',
     routes: [
       {
-        name: 'app1-layout',
+        name: 'app1',
         path: '/app1/*',
       },
     ],
