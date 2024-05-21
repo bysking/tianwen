@@ -3,9 +3,10 @@ import { getMockApp } from '@/pages/mockapp';
 import { processSubAppMenuItem } from '@/utils/tool';
 import { ProLayout } from '@ant-design/pro-components';
 import { Link, Outlet, useAppData, useModel } from '@umijs/max';
+import { useEffect } from 'react';
 
 const Layout = () => {
-  const { initialState } = useModel('@@initialState');
+  const { initialState, setInitialState } = useModel('@@initialState');
   let projectApps = initialState?.projectApps || [];
 
   // 处理如果是mock模式，需要讲mock的子应用路由代替这里的routes getMockApp
@@ -17,11 +18,18 @@ const Layout = () => {
     apps = [...mockAppList, ...projectApps];
   }
 
-  let curPath = 'reactApp2'; // cpx:todo 根据；路由计算当前激活的路由所在的app,或者基座
-  const curApp = apps.find((app) => {
-    return app.projectCode === curPath;
-  });
+  useEffect(() => {
+    let curPath = window.location.pathname.split('/')[1];
+    const curApp = apps.find((app) => {
+      return app.projectCode === curPath;
+    });
+    setInitialState({
+      ...initialState,
+      curApp,
+    });
+  }, []);
 
+  let curApp = initialState.curApp;
   const appData = useAppData();
   const defaultRoutes = [];
   Object.keys(appData.routes).forEach((key) => {
@@ -60,7 +68,11 @@ const Layout = () => {
         // rightContentRender={() => <RightContent />}
         // footerRender={() => <Footer />}
         menu={{
+          params: {
+            curApp,
+          },
           request: async () => {
+            console.log('request', routes);
             // 动态请求的菜单
             return routes;
           },

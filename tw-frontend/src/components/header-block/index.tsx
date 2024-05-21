@@ -4,14 +4,8 @@ import { Button, Drawer, Tag } from 'antd';
 import { useState } from 'react';
 
 const HeaderBlock = () => {
-  const { initialState } = useModel('@@initialState');
+  const { initialState, setInitialState } = useModel('@@initialState');
   let projectApps = initialState?.projectApps || [];
-  projectApps = projectApps.map((obj) => {
-    return {
-      appName: obj.appName,
-      path: '/' + obj.projectCode,
-    };
-  });
 
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
@@ -22,7 +16,6 @@ const HeaderBlock = () => {
     setOpen(false);
   };
 
-  console.log(projectApps, 'projectApps');
   return (
     <div style={{ padding: '16px 16px', borderBottom: '1px solid #ccc' }}>
       <div
@@ -45,7 +38,11 @@ const HeaderBlock = () => {
               <div key={item.projectCode}>
                 <Button
                   onClick={() => {
-                    history.push(item.path);
+                    setInitialState({
+                      ...initialState,
+                      curApp: item,
+                    });
+                    history.push(`/${item.projectCode}`);
                     onClose();
                   }}
                   type="link"

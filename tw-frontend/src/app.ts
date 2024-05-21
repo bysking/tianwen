@@ -12,8 +12,9 @@ let projectApps: typeProjectApp[] = [];
 // 更多信息见文档：https://umijs.org/docs/api/runtime-config#getinitialstate
 export async function getInitialState(): Promise<{
   projectApps: typeProjectApp[];
+  curApp: typeProjectApp | undefined;
 }> {
-  return { projectApps };
+  return { projectApps, curApp: undefined };
 }
 
 // src/app.ts
@@ -21,14 +22,11 @@ export const qiankun = async () => {
   const resData = await getMenuConfigWithPermit();
   projectApps = resData.data as typeProjectApp[];
 
-  console.log('resData', resData);
   const env = getEnv();
   const apps = getSubAppMenuCfg(resData.data, env);
 
   const mockAppData = getMockApp();
   let mockAppList = [mockAppData].filter(Boolean);
-
-  console.log('bysking get app register', apps);
 
   return {
     apps: [
@@ -54,17 +52,17 @@ export const qiankun = async () => {
       // props 为当前正在加载的 子应用的配置信息
       beforeLoad: (props: unknown) => {
         // 自定义 loading
-        console.log('beforeLoad...');
+        // console.log('beforeLoad...');
       },
       beforeMount: (props: unknown) => {
-        console.log('beforeMount', props);
+        // console.log('beforeMount', props);
       },
       afterMount: (props: unknown) => {
         // 删除 loading
-        console.log('afterMount', props);
+        // console.log('afterMount', props);
       },
       afterUnmount: (props: unknown) => {
-        console.log('afterMount', props);
+        // console.log('afterMount', props);
       },
     },
     prefetch: false,
