@@ -1,0 +1,15 @@
+{
+  "name": "egg-example",
+  "scripts": {
+    "dev": "egg-bin dev"
+  },
+  "dependencies": {
+    "cnpm": "^9.2.0",
+    "egg": "^3.17.4",
+    "egg-view-nunjucks": "^2.3.0",
+    "moment": "^2.30.1"
+  },
+  "devDependencies": {
+    "egg-bin": "^6.4.2"
+  }
+}
