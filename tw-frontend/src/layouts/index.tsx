@@ -136,6 +136,9 @@ const Layout = () => {
           );
         }}
         pure={false}
+        contentStyle={{
+          padding: 0,
+        }}
       >
         <HeaderBlock />
         <Outlet />
