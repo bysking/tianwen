@@ -1,110 +1,42 @@
+import HeaderBlock from '@/components/header-block';
 import { getMockApp } from '@/pages/mockapp';
+import { processSubAppMenuItem } from '@/utils/tool';
 import { ProLayout } from '@ant-design/pro-components';
-import { Link, Outlet } from '@umijs/max';
+import { Link, Outlet, useAppData, useModel } from '@umijs/max';
 
-const layoutSettings = {
-  // route: {
-  //   path: '/',
-  //   routes: [
-  //     {
-  //       path: '/welcome',
-  //       name: '欢迎',
-  //       component: './Welcome',
-  //     },
-  //     {
-  //       path: '/admin',
-  //       name: '管理页',
-  //       component: './Admin',
-  //       routes: [
-  //         {
-  //           path: '/admin/sub-page1',
-  //           name: '一级页面',
-  //           component: './Welcome',
-  //         },
-  //         {
-  //           path: '/admin/sub-page2',
-  //           name: '二级页面',
-  //           component: './Welcome',
-  //         },
-  //         {
-  //           path: '/admin/sub-page3',
-  //           name: '三级页面',
-  //           component: './Welcome',
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // },
-  // appList: [
-  //   {
-  //     icon: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
-  //     title: 'Ant Design',
-  //     desc: '杭州市较知名的 UI 设计语言',
-  //     url: 'https://ant.design',
-  //   },
-  //   {
-  //     icon: 'https://gw.alipayobjects.com/zos/antfincdn/FLrTNDvlna/antv.png',
-  //     title: 'AntV',
-  //     desc: '蚂蚁集团全新一代数据可视化解决方案',
-  //     url: 'https://antv.vision/',
-  //     target: '_blank',
-  //   },
-  //   {
-  //     icon: 'https://gw.alipayobjects.com/zos/antfincdn/upvrAjAPQX/Logo_Tech%252520UI.svg',
-  //     title: 'Pro Components',
-  //     desc: '专业级 UI 组件库',
-  //     url: 'https://procomponents.ant.design/',
-  //   },
-  // ],
-};
-const mockAppData = getMockApp();
-const mockRouteList = [];
+const Layout = () => {
+  const { initialState } = useModel('@@initialState');
+  let projectApps = initialState?.projectApps || [];
 
-if (mockAppData) {
-  mockRouteList.push(mockAppData);
-}
+  // 处理如果是mock模式，需要讲mock的子应用路由代替这里的routes getMockApp
+  const mockAppData = getMockApp();
+  let mockAppList = [mockAppData].filter(Boolean);
+  let apps = projectApps;
+  if (mockAppList.length) {
+    // mock的放在前面
+    apps = [...mockAppList, ...projectApps];
+  }
 
-const routes = [
-  {
-    path: '/welcome',
-    name: '欢迎',
-    component: './Welcome',
-  },
-  {
-    path: '/admin',
-    name: '管理页2',
-    routes: [
-      {
-        path: '/admin/sub-page1',
-        name: '一级页面',
-        component: './Welcome',
-      },
-      {
-        path: '/admin/sub-page2',
-        name: '二级页面',
-        component: './Welcome',
-      },
-      {
-        path: '/admin/sub-page3',
-        name: '三级页面',
-        component: './Welcome',
-      },
-    ],
-  },
-  {
-    name: '子应用',
-    path: '/app1',
-    routes: [
-      {
-        name: 'app1',
-        path: '/app1/*',
-      },
-    ],
-  },
-  ...mockRouteList,
-];
+  let curPath = 'reactApp2'; // cpx:todo 根据；路由计算当前激活的路由所在的app,或者基座
+  const curApp = apps.find((app) => {
+    return app.projectCode === curPath;
+  });
 
-const Layout = (props: typeProps) => {
+  const appData = useAppData();
+  const defaultRoutes = [];
+  Object.keys(appData.routes).forEach((key) => {
+    let routeObj = appData.routes[key];
+    defaultRoutes.push(routeObj);
+  });
+
+  let routes = curApp?.menuRoute.map((mItem) =>
+    processSubAppMenuItem(mItem, curApp.projectCode),
+  );
+
+  if (!curApp) {
+    routes = defaultRoutes;
+  }
+
   return (
     <div>
       <ProLayout
@@ -121,7 +53,6 @@ const Layout = (props: typeProps) => {
         //   disableContentMargin
         fixSiderbar
         // fixedHeader={true}
-        {...layoutSettings}
         //   collapsed={initialState?.collapsed}
         onCollapse={(collapsed: boolean) => {
           // setInitialState((s) => ({ ...s, collapsed }));
@@ -206,6 +137,7 @@ const Layout = (props: typeProps) => {
         }}
         pure={false}
       >
+        <HeaderBlock />
         <Outlet />
       </ProLayout>
     </div>

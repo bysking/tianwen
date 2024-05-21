@@ -1,9 +1,9 @@
 let nemuData = [
   {
     projectCode: 'reactApp',
-    appName: 'reactDemo平台',
+    appName: 'reactApp平台',
     entryEnv: {
-      local: '//localhost:8005/',
+      local: '//localhost:8008/',
       dev: '//dev.bysking.cc/reactApp',
       test: '//test.bysking.cc/reactApp',
       prod: '//prod.bysking.cc/reactApp',
@@ -19,19 +19,13 @@ let nemuData = [
         path: '/welcome',
       },
       {
-        name: '任务管理',
-        path: '/task',
+        path: '/mytodo',
+        icon: 'icon-MDS-baobiaoguanli',
+        name: '我的待办',
         routes: [
           {
-            name: '任务列表',
-            path: '/task/task-list',
-            component: './task-list',
-            access: '',
-          },
-          {
-            name: '任务验收',
-            path: '/task/task-check',
-            component: './task-check',
+            path: '/mytodo/todolist',
+            name: '待办事项',
             access: '',
           },
         ],
@@ -51,7 +45,7 @@ let nemuData = [
       test: '//test.bysking/reactDemo',
       uat: '//uat.bysking/reactDemo',
       prod: '//prod.bysking/reactDemo',
-      local: '//localhost:8006/',
+      local: '//localhost:8008/',
     },
     linkApps: [
       {

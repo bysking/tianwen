@@ -6,6 +6,13 @@ export default defineConfig({
   access: {},
   model: {},
   initialState: {},
+  proxy: {
+    '/api/v1': {
+      target: 'http://localhost:7002',
+      changeOrigin: true,
+      pathRewrite: { '^/api/v1': '' },
+    },
+  },
   request: {},
   layout: false,
   routes,

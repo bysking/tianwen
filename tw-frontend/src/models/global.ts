@@ -4,8 +4,11 @@ import { useState } from 'react';
 
 const useUser = () => {
   const [name, setName] = useState<string>(DEFAULT_NAME);
+  const [menuData, setMenuData] = useState([]);
   return {
     name,
+    menuData,
+    setMenuData,
     setName,
   };
 };

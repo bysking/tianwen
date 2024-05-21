@@ -2,67 +2,52 @@
 
 import { useState } from 'react';
 import { getMockApp } from './pages/mockapp';
+import { getMenuConfigWithPermit } from './services/user';
+import { typeProjectApp } from './types';
+import { getEnv, getSubAppMenuCfg } from './utils/tool';
+
+let projectApps: typeProjectApp[] = [];
 
 // 全局初始化数据配置，用于 Layout 用户信息和权限初始化
 // 更多信息见文档：https://umijs.org/docs/api/runtime-config#getinitialstate
-export async function getInitialState(): Promise<{ name: string }> {
-  // 获取用户的app列表，app中包含路由
-  return { name: '@umijs/max' };
+export async function getInitialState(): Promise<{
+  projectApps: typeProjectApp[];
+}> {
+  return { projectApps };
 }
-
-// export const layout = ({ initialState }) => {
-//   return {
-//     logo: 'https://img.alicdn.com/tfs/TB1YHEpwUT1gK0jSZFhXXaAtVXa-28-27.svg',
-//     menu: {
-//       locale: false,
-//       params: {
-//         userId: initialState?.currentUser?.userid,
-//       },
-//       request: async (params, defaultMenuData) => {
-//         // initialState.currentUser 中包含了所有用户信息
-//         // const menuData = await fetchMenuData(); // 接口获取菜单信息
-//         console.log(1234567);
-
-//         return [
-//           {
-//             path: '/product',
-//             name: '产品管理',
-//             routes: [
-//               { path: '/product', redirect: 'product/list' },
-//               {
-//                 path: '/product/list',
-//                 name: '产品列表',
-//               },
-//               {
-//                 path: '/product/new',
-//                 name: '新建产品',
-//               },
-//             ],
-//           },
-//         ];
-//       },
-//     },
-//   };
-// };
 
 // src/app.ts
 export const qiankun = async () => {
+  const resData = await getMenuConfigWithPermit();
+  projectApps = resData.data as typeProjectApp[];
+
+  console.log('resData', resData);
+  const env = getEnv();
+  const apps = getSubAppMenuCfg(resData.data, env);
+
   const mockAppData = getMockApp();
+  let mockAppList = [mockAppData].filter(Boolean);
+
+  console.log('bysking get app register', apps);
 
   return {
     apps: [
-      {
-        name: 'app1',
-        entry: '//localhost:8008/',
-      },
-      // mockAppData,
+      // 子应用和入口
+      // {
+      //   name: 'app1',
+      //   entry: '//localhost:8008/',
+      // },
+      ...apps,
+      ...mockAppList,
     ],
     routes: [
-      {
-        path: '/app1',
-        microApp: 'app1',
-      },
-      // mockAppData,
+      // 路由path和子应用的关系
+      // {
+      //   path: '/app1',
+      //   microApp: 'app1',
+      // },
+      ...apps,
+      ...mockAppList,
     ],
     lifeCycles: {
       // 只会触发一次，加载时间较长

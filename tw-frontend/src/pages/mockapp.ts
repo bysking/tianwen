@@ -1,17 +1,50 @@
+import { getEnv, getMenuRoute } from '@/utils/tool';
+
 const cacheMockAppKey = 'tianwen_cacheMockAppKey';
 export const getMockApp = () => {
-  let app = JSON.parse(
+  let appCfgLocal = JSON.parse(
     localStorage.getItem(cacheMockAppKey) || JSON.stringify({}),
   );
 
-  app = {
-    entry: app.entry,
-    path: app.name,
-    microApp: app.name,
-    name: app.name,
-  };
-
-  return app;
+  //   {
+  //     "projectCode": "reactApp",
+  //     "appName": "reactDemo平台",
+  //     "entryEnv": {
+  //         "local": "//localhost:8008/",
+  //         "dev": "//dev.bysking.cc/reactApp",
+  //         "test": "//test.bysking.cc/reactApp",
+  //         "prod": "//prod.bysking.cc/reactApp"
+  //     },
+  //     "menuRoute": [
+  //         {
+  //             "path": "/",
+  //             "redirect": "/welcome"
+  //         },
+  //         {
+  //             "name": "欢迎",
+  //             "icon": "icon-shouye",
+  //             "path": "/welcome"
+  //         },
+  //         {
+  //             "path": "/mytodo",
+  //             "icon": "icon-MDS-baobiaoguanli",
+  //             "name": "我的待办",
+  //             "routes": [
+  //                 {
+  //                     "path": "/mytodo/todolist",
+  //                     "name": "待办事项",
+  //                     "access": ""
+  //                 }
+  //             ]
+  //         }
+  //     ]
+  // }
+  if (!Object.keys(appCfgLocal).length) {
+    return;
+  }
+  const env = getEnv();
+  const appCfg = getMenuRoute(appCfgLocal, env);
+  return appCfg;
 };
 
 export const setMockApp = (data: any) => {
