@@ -28,6 +28,11 @@ let nemuData = [
             name: '待办事项',
             access: '',
           },
+          {
+            path: '/collect-mgr/CollectPlan',
+            name: '采集计划管理',
+            access: 'COLLECT_PLANMANAGEMENT',
+          },
         ],
       },
     ],
@@ -69,8 +74,13 @@ let nemuData = [
         routes: [
           {
             path: '/link-reactApp/user-center/approve-center',
-            name: '审批中心',
+            name: '审批',
             access: ['ACCESS_CODE_1', 'ACCESS_CODE_2'],
+          },
+          {
+            path: '/link-reactApp/user-center/approve-center',
+            name: '中心',
+            access: ['ACCESS_CODE_1', 'ACCESS_CODE_3'],
           },
         ],
       },

@@ -16,6 +16,15 @@ let roleData = {
             },
           ],
         },
+        {
+          resourceCode: 'reactApp:COLLECT_PLANMANAGEMENT',
+          constraintList: [
+            {
+              constraintCode: 'reactApp:options',
+              constraintItem: ['create', 'view'],
+            },
+          ],
+        },
       ],
     },
     {
@@ -34,7 +43,7 @@ let roleData = {
           ],
         },
         {
-          resourceCode: 'reactDemo:auth_list',
+          resourceCode: 'reactDemo:ACCESS_CODE_1',
           constraintList: [
             {
               constraintCode: 'reactDemo:options',
