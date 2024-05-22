@@ -8,7 +8,7 @@ export default defineConfig({
   initialState: {},
   proxy: {
     '/api/v1': {
-      target: 'http://localhost:7002',
+      target: 'http://localhost:7001',
       changeOrigin: true,
       pathRewrite: { '^/api/v1': '' },
     },
@@ -18,6 +18,9 @@ export default defineConfig({
   routes,
   npmClient: 'pnpm',
   qiankun: {
-    master: {},
+    master: {
+      defaultErrorBoundary: '@/defaultErrorBoundary',
+      defaultLoader: '@/defaultLoader',
+    },
   },
 });
