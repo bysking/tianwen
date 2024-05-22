@@ -1,6 +1,6 @@
 import HeaderBlock from '@/components/header-block';
 import { getMockApp } from '@/pages/mockapp';
-import { processSubAppMenuItem } from '@/utils/tool';
+import { filterRouteByPermission, processSubAppMenuItem } from '@/utils/tool';
 import { ProLayout } from '@ant-design/pro-components';
 import { Link, Outlet, useAppData, useModel } from '@umijs/max';
 import { useEffect } from 'react';
@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 const Layout = () => {
   const { initialState, setInitialState } = useModel('@@initialState');
   let projectApps = initialState?.projectApps || [];
+  let projectAppsPermission = initialState?.projectAppsPermission || [];
 
   // 处理如果是mock模式，需要讲mock的子应用路由代替这里的routes getMockApp
   const mockAppData = getMockApp();
@@ -41,6 +42,12 @@ const Layout = () => {
     processSubAppMenuItem(mItem, curApp.projectCode),
   );
 
+  routes = filterRouteByPermission(
+    curApp?.projectCode,
+    routes,
+    projectAppsPermission,
+  );
+
   if (!curApp) {
     routes = defaultRoutes;
   }
@@ -72,7 +79,7 @@ const Layout = () => {
             curApp,
           },
           request: async () => {
-            console.log('request', routes);
+            // console.log('request', routes);
             // 动态请求的菜单
             return routes;
           },

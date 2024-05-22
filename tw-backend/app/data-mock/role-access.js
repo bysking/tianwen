@@ -5,9 +5,6 @@ let roleData = {
       projectCode: 'reactApp',
       projectName: 'reactApp名字',
       projectDesc: 'reactApp描述',
-      sortValue: 15,
-      console: false,
-      partner: false,
       roleList: ['reactApp:admin'],
       resourceList: [
         {
@@ -25,9 +22,6 @@ let roleData = {
       projectCode: 'reactDemo',
       projectName: 'reactDemo名字',
       projectDesc: 'reactDemo描述',
-      sortValue: 6,
-      console: true,
-      partner: false,
       roleList: ['reactDemo:admin'],
       resourceList: [
         {

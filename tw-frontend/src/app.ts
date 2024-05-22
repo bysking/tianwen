@@ -2,25 +2,31 @@
 
 import { useState } from 'react';
 import { getMockApp } from './pages/mockapp';
-import { getMenuConfigWithPermit } from './services/user';
-import { typeProjectApp } from './types';
+import { getMenuConfigWithPermit, getRoleAccess } from './services/user';
+import { permissionTypeApp, typeProjectApp } from './types';
 import { getEnv, getSubAppMenuCfg } from './utils/tool';
 
 let projectApps: typeProjectApp[] = [];
+let projectAppsPermission: permissionTypeApp[] = [];
 
 // 全局初始化数据配置，用于 Layout 用户信息和权限初始化
 // 更多信息见文档：https://umijs.org/docs/api/runtime-config#getinitialstate
 export async function getInitialState(): Promise<{
   projectApps: typeProjectApp[];
+  projectAppsPermission: permissionTypeApp[];
   curApp: typeProjectApp | undefined;
 }> {
-  return { projectApps, curApp: undefined };
+  return { projectApps, curApp: undefined, projectAppsPermission };
 }
 
 // src/app.ts
 export const qiankun = async () => {
   const resData = await getMenuConfigWithPermit();
+  const accessData = await getRoleAccess();
+
   projectApps = resData.data as typeProjectApp[];
+  projectAppsPermission = accessData?.data
+    ?.projectAccess as permissionTypeApp[];
 
   const env = getEnv();
   const apps = getSubAppMenuCfg(resData.data, env);

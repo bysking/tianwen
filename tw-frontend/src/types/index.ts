@@ -29,3 +29,17 @@ export interface typeProjectApp {
   }[];
   menuRoute: typeEnumRoute[];
 }
+
+export interface permissionTypeApp {
+  resourceList: {
+    resourceCode: string;
+    constraintList: {
+      constraintCode: string;
+      constraintItem: string[];
+    }[];
+  }[];
+  roleList: string[];
+  projectCode: string;
+  projectName: string;
+  projectDesc: string;
+}

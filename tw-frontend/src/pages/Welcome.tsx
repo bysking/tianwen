@@ -33,7 +33,9 @@ const Welcome = () => {
   return (
     <div>
       <div>
-        <div style={{ margin: '8px' }}>本地appMock</div>
+        <div style={{ margin: '8px' }}>
+          代理本地子应用配置:entryEnv.local 和 menuRoute的内容
+        </div>
         <Form
           onFinish={onFinish}
           initialValues={{
