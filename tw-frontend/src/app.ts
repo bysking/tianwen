@@ -26,7 +26,7 @@ export const qiankun = async () => {
   const apps = getSubAppMenuCfg(resData.data, env);
 
   const mockAppData = getMockApp();
-  let mockAppList = [mockAppData].filter(Boolean);
+  let mockAppList = getSubAppMenuCfg([mockAppData].filter(Boolean), env);
 
   return {
     apps: [

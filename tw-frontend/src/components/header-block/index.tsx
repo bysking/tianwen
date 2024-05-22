@@ -1,3 +1,4 @@
+import { getMockApp } from '@/pages/mockapp';
 import { AppstoreTwoTone } from '@ant-design/icons';
 import { history, useModel } from '@umijs/max';
 import { Button, Drawer, Tag } from 'antd';
@@ -6,7 +7,10 @@ import { useState } from 'react';
 const HeaderBlock = () => {
   const { initialState, setInitialState } = useModel('@@initialState');
   let projectApps = initialState?.projectApps || [];
+  const mockAppData = getMockApp();
+  let mockAppList = [mockAppData].filter(Boolean);
 
+  projectApps = [...projectApps, ...mockAppList];
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
     setOpen(true);

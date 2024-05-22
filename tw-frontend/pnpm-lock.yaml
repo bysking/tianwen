@@ -17,6 +17,9 @@ dependencies:
   antd:
     specifier: ^5.4.0
     version: 5.16.1(react-dom@18.2.0)(react@18.2.0)
+  react-monaco-editor:
+    specifier: ^0.55.0
+    version: 0.55.0(@types/react@18.2.77)(monaco-editor@0.44.0)(react@18.2.0)
 
 devDependencies:
   '@types/react':
@@ -2413,7 +2416,7 @@ packages:
     resolution: {integrity: sha512-hy8b7Y1J8OGe6LbAjj3xniQrj3v6lsivCcrmf4TzSgPzLkhIeKgc5IZnT7ReIqmEuodjfO8EYAuoFvIrHi/+jQ==}
     deprecated: This is a stub types definition. history provides its own type definitions, so you do not need this installed.
     dependencies:
-      history: 4.10.1
+      history: 5.3.0
     dev: false
 
   /@types/hoist-non-react-statics@3.3.5:
@@ -2495,7 +2498,7 @@ packages:
       '@types/history': 4.7.11
       '@types/react': 18.2.77
       '@types/react-router': 5.1.20
-      redux: 3.7.2
+      redux: 4.2.1
     dev: false
 
   /@types/react-router@5.1.20:
@@ -7099,6 +7102,10 @@ packages:
     resolution: {integrity: sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==}
     dev: false
 
+  /monaco-editor@0.44.0:
+    resolution: {integrity: sha512-5SmjNStN6bSuSE5WPT2ZV+iYn1/yI9sd4Igtk23ChvqB7kDk9lZbB9F5frsuvpB+2njdIeGGFf2G4gbE6rCC9Q==}
+    dev: false
+
   /ms@2.1.2:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
 
@@ -9287,6 +9294,19 @@ packages:
 
   /react-merge-refs@1.1.0:
     resolution: {integrity: sha512-alTKsjEL0dKH/ru1Iyn7vliS2QRcBp9zZPGoWxUOvRGWPUYgjo+V01is7p04It6KhgrzhJGnIj9GgX8W4bZoCQ==}
+    dev: false
+
+  /react-monaco-editor@0.55.0(@types/react@18.2.77)(monaco-editor@0.44.0)(react@18.2.0):
+    resolution: {integrity: sha512-GdEP0Q3Rn1dczfKEEyY08Nes5plWwIYU4sWRBQO0+jsQWQsKMHKCC6+hPRwR7G/4aA3V/iU9jSmWPzVJYMVFSQ==}
+    peerDependencies:
+      '@types/react': '>=16 <= 18'
+      monaco-editor: ^0.44.0
+      react: '>=16 <= 18'
+    dependencies:
+      '@types/react': 18.2.77
+      monaco-editor: 0.44.0
+      prop-types: 15.8.1
+      react: 18.2.0
     dev: false
 
   /react-redux@5.1.2(react@18.2.0)(redux@3.7.2):

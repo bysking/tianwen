@@ -1,5 +1,3 @@
-import { getEnv, getMenuRoute } from '@/utils/tool';
-
 const cacheMockAppKey = 'tianwen_cacheMockAppKey';
 export const getMockApp = () => {
   let appCfgLocal = JSON.parse(
@@ -42,9 +40,7 @@ export const getMockApp = () => {
   if (!Object.keys(appCfgLocal).length) {
     return;
   }
-  const env = getEnv();
-  const appCfg = getMenuRoute(appCfgLocal, env);
-  return appCfg;
+  return appCfgLocal;
 };
 
 export const setMockApp = (data: any) => {

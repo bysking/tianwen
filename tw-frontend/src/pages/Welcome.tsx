@@ -1,20 +1,12 @@
+import FormEditor from '@/components/editor';
 import { useModel } from '@umijs/max';
-import { Button } from 'antd';
+import { Button, Form } from 'antd';
 import { useEffect, useState } from 'react';
 import { clearApp, getMockApp, setMockApp } from './mockapp';
 
 const Welcome = () => {
-  const [appCfg, setAppCfg] = useState({});
-
-  const { menuData, setMenuData } = useModel('global');
-
-  const updateMenu = () => {
-    setMenuData([
-      {
-        name: Math.random(),
-      },
-    ]);
-  };
+  const defaultData = getMockApp();
+  const [appCfg, setAppCfg] = useState(defaultData);
   const initData = async () => {
     const appList = await getMockApp();
     setAppCfg(appList);
@@ -28,7 +20,8 @@ const Welcome = () => {
   const { masterState, setMasterState } = useModel('@@qiankunStateForSlave');
 
   const onFinish = (values: any) => {
-    setMockApp(values);
+    let json = JSON.parse(values.text);
+    setMockApp(json);
     window.location.reload();
   };
 
@@ -39,19 +32,16 @@ const Welcome = () => {
 
   return (
     <div>
-      欢迎{masterState}
       <div>
-        {/* <div>本地appMock</div>
-        <Form onFinish={onFinish}>
-          <Form.Item label="title" name="title">
-            <Input />
-          </Form.Item>
-          <Form.Item label="name" name="name">
-            <Input />
-          </Form.Item>
-
-          <Form.Item label="entry" name="entry">
-            <Input />
+        <div style={{ margin: '8px' }}>本地appMock</div>
+        <Form
+          onFinish={onFinish}
+          initialValues={{
+            text: JSON.stringify(defaultData, null, 2),
+          }}
+        >
+          <Form.Item name="text">
+            <FormEditor />
           </Form.Item>
 
           <Form.Item>
@@ -62,11 +52,7 @@ const Welcome = () => {
         </Form>
         <Button type="primary" onClick={clear}>
           清除
-        </Button> */}
-        <Button type="primary" onClick={updateMenu}>
-          更新menuDATA
         </Button>
-        {JSON.stringify(menuData)}
       </div>
     </div>
   );
