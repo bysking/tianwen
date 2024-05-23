@@ -1,9 +1,14 @@
 {
   "private": true,
   "author": "bysking",
+  "name": "tianwen-ui",
   "scripts": {
     "dev": "max dev",
-    "build": "max build",
+    "analyze": "cross-env ANALYZE=1 max build",
+    "build:prod": "cross-env UMI_ENV=prod max build",
+    "build:dev": "cross-env UMI_ENV=dev max build",
+    "build:test": "cross-env UMI_ENV=test max build",
+    "build:stage": "cross-env UMI_ENV=stage max build",
     "format": "prettier --cache --write .",
     "prepare": "husky",
     "postinstall": "max setup",
@@ -20,11 +25,15 @@
   "devDependencies": {
     "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.11",
+    "cross-env": "^7.0.3",
     "husky": "^9",
     "lint-staged": "^13.2.0",
     "prettier": "^2.8.7",
     "prettier-plugin-organize-imports": "^3.2.2",
     "prettier-plugin-packagejson": "^2.4.3",
     "typescript": "^5.0.3"
+  },
+  "peerDependencies": {
+    "cross-env": "^7.0.3"
   }
 }
