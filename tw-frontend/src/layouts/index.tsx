@@ -1,14 +1,17 @@
 import HeaderBlock from '@/components/header-block';
 import { getMockApp } from '@/pages/mockapp';
 import { filterRouteByPermission, processSubAppMenuItem } from '@/utils/tool';
+import { BankTwoTone } from '@ant-design/icons';
 import { ProLayout } from '@ant-design/pro-components';
-import { Link, Outlet, useAppData, useModel } from '@umijs/max';
+import { Outlet, history, useAppData, useModel, useNavigate } from '@umijs/max';
 import { useEffect } from 'react';
 
 const Layout = () => {
   const { initialState, setInitialState } = useModel('@@initialState');
   let projectApps = initialState?.projectApps || [];
   let projectAppsPermission = initialState?.projectAppsPermission || [];
+  const navigate = useNavigate();
+  const location = history.location;
 
   // 处理如果是mock模式，需要讲mock的子应用路由代替这里的routes getMockApp
   const mockAppData = getMockApp();
@@ -28,7 +31,7 @@ const Layout = () => {
       ...initialState,
       curApp,
     });
-  }, []);
+  }, [location]);
 
   let curApp = initialState.curApp;
   const appData = useAppData();
@@ -51,6 +54,47 @@ const Layout = () => {
   if (!curApp) {
     routes = defaultRoutes;
   }
+
+  const onPageChange = () => {
+    const { location: hisLocation } = history;
+    const pathname = hisLocation.pathname;
+
+    // // 如果没有登录，重定向到 login cpx:todo 处理登录
+    // if (!access(initialState).canLogin()) {
+    //   if (pathname !== LOGIN_PATH) {
+    //     Logger.warning('no login, redirect to login page');
+    //     goLoginPage();
+    //   }
+    //   return;
+    // }
+
+    if (!curApp) {
+      // curApp不存在说明是基座的菜单路由
+      return;
+    }
+
+    const getPathMap = (routeList: any[], resMap = {}) => {
+      const accessRoutePath = routeList.reduce((res, cur) => {
+        res[cur.path] = true;
+
+        if (cur.routes?.length) {
+          getPathMap(cur.routes, resMap);
+        }
+        return res;
+      }, resMap);
+
+      return accessRoutePath;
+    };
+
+    // 拥有权限的path列表
+    let pathAccessMap = getPathMap([...defaultRoutes, ...routes]);
+    if (!pathAccessMap[pathname]) {
+      console.error('check path access enable false to 403');
+
+      // cpx:todo 可以优化下，有路由没有权限，和没有路由跳转404这两种场景
+      navigate('/403', { replace: true });
+    }
+  };
 
   return (
     <div>
@@ -79,80 +123,35 @@ const Layout = () => {
             curApp,
           },
           request: async () => {
-            // console.log('request', routes);
+            onPageChange(); // 处理直接输入没有权限的路由，手动触发一次页面变化逻辑
             // 动态请求的菜单
             return routes;
           },
         }}
-        //   onPageChange={onPageChange}
+        onPageChange={onPageChange}
         //   onMenuHeaderClick={onMenuHeaderClick}
-        //   menuHeaderRender={() => {
-        //     const app = usingSubApp; // getCurrentSubAppData(microAppsConfig, usingSubApp.current);
-        //     // Logger.info('current app:', app);
-        //     return (
-        //       <div className="app-layout-tf">
-        //         <img
-        //           src={
-        //             app && app?.logo
-        //               ? app?.logo
-        //               : initialState?.collapsed
-        //               ? DefaultlogoSingle
-        //               : Defaultlogo
-        //           }
-        //           alt={app?.appName}
-        //         />
-        //       </div>
-        //     );
-        //   }}
-        itemRender={(routeItem, _, routes) => {
-          const { breadcrumbName, title, path } = routeItem;
-          const label = title || breadcrumbName;
-          const last = routes[routes.length - 1];
-          if (last) {
-            if (last.path === path || last.linkPath === path) {
-              return <span>{label}</span>;
-            }
-          }
-          return <Link to={path}>{label}</Link>;
-        }}
-        menuItemRender={(item, dom, menuProps) => {
-          const isTopLevelItem = (menuProps.menuData || []).find(
-            ({ path }) => path === item.path,
-          );
-          return isTopLevelItem ? (
-            <Link className={'mainapp-cusmenuitem-container'} to={item.path!}>
-              <>{dom}</>
-            </Link>
-          ) : (
-            <Link
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                fontSize: '16px',
-              }}
-              to={item.path!}
-            >
-              <>
-                {/* {item.icon} */}
-                {dom}
-              </>
-            </Link>
-          );
-        }}
-        subMenuItemRender={(item, dom) => {
-          // console.log('subMenuItemRender item', item, menuProps);
+        menuHeaderRender={() => {
           return (
             <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
+              onClick={() => {
+                navigate('/', { replace: true });
               }}
-              className="mainapp-cusmenuitem-container"
+              style={{
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+              }}
             >
-              {/* {item.icon} */}
-              {dom}
+              <BankTwoTone
+                style={{
+                  fontSize: '32px',
+                }}
+              />
             </div>
           );
+        }}
+        menuItemRender={(item, defaultDom) => {
+          return <a onClick={() => navigate(item.path)}>{defaultDom}</a>;
         }}
         pure={false}
         contentStyle={{
