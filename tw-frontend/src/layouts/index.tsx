@@ -22,18 +22,23 @@ const Layout = () => {
     apps = [...mockAppList, ...projectApps];
   }
 
-  useEffect(() => {
+  const getCurApp = () => {
     let curPath = window.location.pathname.split('/')[1];
     const curApp = apps.find((app) => {
       return app.projectCode === curPath;
     });
+
+    return curApp;
+  };
+
+  useEffect(() => {
     setInitialState({
       ...initialState,
-      curApp,
+      curApp: getCurApp(),
     });
   }, [location]);
 
-  let curApp = initialState.curApp;
+  let curApp = getCurApp();
   const appData = useAppData();
   const defaultRoutes = [];
   Object.keys(appData.routes).forEach((key) => {
@@ -68,7 +73,7 @@ const Layout = () => {
     //   return;
     // }
 
-    if (!curApp) {
+    if (!getCurApp()) {
       // curApp不存在说明是基座的菜单路由
       return;
     }
@@ -134,7 +139,7 @@ const Layout = () => {
           return (
             <div
               onClick={() => {
-                navigate('/', { replace: true });
+                navigate('/welcome', { replace: true });
               }}
               style={{
                 width: '100%',

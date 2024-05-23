@@ -20,7 +20,7 @@ export default defineConfig({
   qiankun: {
     master: {
       defaultErrorBoundary: '@/defaultErrorBoundary',
-      defaultLoader: '@/defaultLoader',
+      // defaultLoader: '@/defaultLoader', // 自定义加载子应用的loading组件
     },
   },
 });
