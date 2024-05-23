@@ -68,17 +68,17 @@ let nemuData = [
         hideInMenu: true,
       },
       {
-        path: '/link-reactApp/user-center',
+        path: '/link-reactApp/mytodo',
         name: '外链应用',
         icon: 'icon-shujukanban',
         routes: [
           {
-            path: '/link-reactApp/user-center/approve-center',
-            name: '审批',
+            path: '/link-reactApp/mytodo/todolist',
+            name: '待办外链',
             access: ['ACCESS_CODE_1', 'ACCESS_CODE_2'],
           },
           {
-            path: '/link-reactApp/user-center/approve-center',
+            path: '/link-reactApp/mytodo/todolist2',
             name: '中心',
             access: ['ACCESS_CODE_1', 'ACCESS_CODE_3'],
           },
