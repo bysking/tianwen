@@ -17,5 +17,14 @@ module.exports = {
   i18n: {
     defaultLocale: 'zh-CN',
   },
-  security: {},
+  security: {
+    csrf: {
+      ignore: (ctx) => {
+        // 登录接口放行，其余接口必须携带token
+        if (ctx.url === '/oauth/token') {
+          return true;
+        }
+      },
+    },
+  },
 };

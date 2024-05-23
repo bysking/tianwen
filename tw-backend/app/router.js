@@ -5,4 +5,5 @@ module.exports = (app) => {
   router.get('/menuConfigWithPermit', controller.menu.menuConfigWithPermit);
   router.get('/userInfo', controller.user.userInfo);
   router.get('/roleAccess', controller.user.roleAccess);
+  router.post('/oauth/token', controller.user.authToken);
 };

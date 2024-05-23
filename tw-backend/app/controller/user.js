@@ -28,6 +28,15 @@ class UserController extends Controller {
       success: true,
     };
   }
+
+  async authToken() {
+    const ctx = this.ctx;
+    ctx.body = {
+      code: 0,
+      data: 'bear bysking token' + Math.random(),
+      success: true,
+    };
+  }
 }
 
 module.exports = UserController;
