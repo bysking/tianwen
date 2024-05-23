@@ -136,6 +136,23 @@ export const getMenuRoute = (mItem: typeProjectApp, env: enumEnv) => {
     microApp: mItem.projectCode,
   };
 };
+
+interface linkAppCfg {
+  microApp: string;
+  microAppPath: string;
+}
+export const getMenuLinkAppRoute = (
+  mItem: linkAppCfg,
+  curApp: any,
+  targetLink: any,
+) => {
+  return {
+    name: mItem.microApp,
+    path: curApp.path + mItem.microAppPath, // A项目的路径
+    entry: targetLink.entry, // B项目的应用入口
+    microApp: targetLink.microApp, // 匹配到B项目的应用
+  };
+};
 export const getSubAppMenuCfg = (
   menuList: typeProjectApp[] = [],
   env: enumEnv,
@@ -152,6 +169,27 @@ export const getSubAppMenuCfg = (
 
   menuList?.forEach((obj: typeProjectApp) => {
     apps.push(getMenuRoute(obj, env));
+  });
+
+  // 处理嵌套子应用的核心是，将需要link的path也注册到指定子应用
+  menuList?.forEach((obj: typeProjectApp) => {
+    if (obj.linkApps?.length) {
+      let curApp = apps.find((item) => item.microApp === obj.projectCode);
+
+      obj.linkApps.forEach(
+        (lItem: { microApp: string; microAppPath: string }) => {
+          let targetLink = apps.find(
+            (item) => item.microApp === lItem.microApp,
+          );
+          if (!targetLink) {
+            console.error(`${lItem.microApp} targetLink not found`);
+            return;
+          }
+          let linkApp = getMenuLinkAppRoute(lItem, curApp, targetLink);
+          apps.push(linkApp);
+        },
+      );
+    }
   });
 
   return apps;
