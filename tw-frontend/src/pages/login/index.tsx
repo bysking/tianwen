@@ -54,7 +54,8 @@ const Login = () => {
 
   const handleToken = async (token: string) => {
     await tokenTool.setToken(token);
-    history.push('/');
+    history.replace('/');
+    window.location.reload();
   };
 
   const initCode = async () => {

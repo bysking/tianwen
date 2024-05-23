@@ -1,10 +1,12 @@
 // 运行时配置
 
 import { useState } from 'react';
+import { requestConf } from '../config/request';
 import { getMockApp } from './pages/mockapp';
 import { getMenuConfigWithPermit, getRoleAccess } from './services/user';
 import { permissionTypeApp, typeProjectApp } from './types';
-import { getEnv, getSubAppMenuCfg } from './utils/tool';
+import { tokenTool } from './utils/data-tool';
+import { getEnv, getSubAppMenuCfg, goLoginPage } from './utils/tool';
 
 let projectApps: typeProjectApp[] = [];
 let projectAppsPermission: permissionTypeApp[] = [];
@@ -23,17 +25,17 @@ export async function getInitialState(): Promise<{
   };
 }
 
-// src/app.ts
+// src/app.ts // cpx:todo 这里会执行两次看下怎么优化
 export const qiankun = async () => {
-  const resData = await getMenuConfigWithPermit();
-  const accessData = await getRoleAccess();
+  const resData = await getMenuConfigWithPermit().catch(() => {});
+  const accessData = await getRoleAccess().catch(() => {});
 
-  projectApps = resData.data as typeProjectApp[];
+  projectApps = resData?.data as typeProjectApp[];
   projectAppsPermission = accessData?.data
     ?.projectAccess as permissionTypeApp[];
 
   const env = getEnv();
-  const apps = getSubAppMenuCfg(resData.data, env);
+  const apps = getSubAppMenuCfg(resData?.data, env);
 
   const mockAppData = getMockApp();
   let mockAppList = getSubAppMenuCfg([mockAppData].filter(Boolean), env);
@@ -87,11 +89,20 @@ export const qiankun = async () => {
   };
 };
 
+export const request = requestConf;
+
 export function useQiankunStateForSlave() {
   const [masterState, setMasterState] = useState('Hello World');
 
   return {
     masterState,
     setMasterState,
+    getUserInfo: () => {
+      return {}; // cpx:todo 提供获取登录用户信息的方法
+    },
+    getSessionId: () => {
+      return tokenTool.getToken();
+    },
+    goLoginPage,
   };
 }
