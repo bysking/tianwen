@@ -33,7 +33,9 @@ class UserController extends Controller {
     const ctx = this.ctx;
     ctx.body = {
       code: 0,
-      data: 'bear bysking token' + Math.random(),
+      data: {
+        token: 'bear bysking token' + Math.random(),
+      },
       success: true,
     };
   }

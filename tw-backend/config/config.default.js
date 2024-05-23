@@ -21,7 +21,10 @@ module.exports = {
     csrf: {
       ignore: (ctx) => {
         // 登录接口放行，其余接口必须携带token
-        if (ctx.url === '/oauth/token') {
+        console.log('------------------------->');
+        console.log(ctx.url);
+        console.log(ctx.request.body, ctx.request.query);
+        if (ctx.url.indexOf('/oauth/token') !== -1) {
           return true;
         }
       },
