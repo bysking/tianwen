@@ -1,10 +1,5 @@
 export default [
   {
-    path: '/login',
-    layout: false,
-    component: './user/Login',
-  },
-  {
     path: '/',
     redirect: '/welcome',
   },
@@ -14,6 +9,14 @@ export default [
     icon: 'icon-huanying1',
     access: 'hasLogin',
     component: './Welcome',
+  },
+  {
+    path: '/login',
+    name: '登录',
+    icon: 'icon-huanying1',
+    layout: false,
+    hideInMenu: true,
+    component: './login',
   },
   {
     path: '/404',

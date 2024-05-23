@@ -1,6 +1,12 @@
 import HeaderBlock from '@/components/header-block';
+import { LOGIN_PATH } from '@/constants';
 import { getMockApp } from '@/pages/mockapp';
-import { filterRouteByPermission, processSubAppMenuItem } from '@/utils/tool';
+import { tokenTool } from '@/utils/data-tool';
+import {
+  filterRouteByPermission,
+  goLoginPage,
+  processSubAppMenuItem,
+} from '@/utils/tool';
 import { BankTwoTone } from '@ant-design/icons';
 import { ProLayout } from '@ant-design/pro-components';
 import { Outlet, history, useAppData, useModel, useNavigate } from '@umijs/max';
@@ -64,14 +70,13 @@ const Layout = () => {
     const { location: hisLocation } = history;
     const pathname = hisLocation.pathname;
 
-    // // 如果没有登录，重定向到 login cpx:todo 处理登录
-    // if (!access(initialState).canLogin()) {
-    //   if (pathname !== LOGIN_PATH) {
-    //     Logger.warning('no login, redirect to login page');
-    //     goLoginPage();
-    //   }
-    //   return;
-    // }
+    // 如果没有登录，重定向到 login
+    if (!tokenTool.getToken()) {
+      if (pathname !== LOGIN_PATH) {
+        goLoginPage();
+      }
+      return;
+    }
 
     if (!getCurApp()) {
       // curApp不存在说明是基座的菜单路由

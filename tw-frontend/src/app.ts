@@ -16,7 +16,11 @@ export async function getInitialState(): Promise<{
   projectAppsPermission: permissionTypeApp[];
   curApp: typeProjectApp | undefined;
 }> {
-  return { projectApps, curApp: undefined, projectAppsPermission };
+  return {
+    projectApps,
+    curApp: undefined,
+    projectAppsPermission,
+  };
 }
 
 // src/app.ts

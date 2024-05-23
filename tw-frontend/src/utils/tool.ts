@@ -1,4 +1,4 @@
-import { INDEX_PATH } from '@/constants';
+import { INDEX_PATH, LOGIN_PATH } from '@/constants';
 import {
   enumEnv,
   permissionTypeApp,
@@ -9,6 +9,10 @@ import { history } from '@umijs/max';
 
 export const goWelcomePage = () => {
   history.replace(INDEX_PATH);
+};
+
+export const goLoginPage = () => {
+  history.replace(LOGIN_PATH);
 };
 
 export const getEnv: () => enumEnv = () => {

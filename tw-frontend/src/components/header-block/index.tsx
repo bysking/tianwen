@@ -1,4 +1,5 @@
 import { getMockApp } from '@/pages/mockapp';
+import { loginOut } from '@/utils/data-tool';
 import { AppstoreTwoTone } from '@ant-design/icons';
 import { history, useModel } from '@umijs/max';
 import { Button, Drawer, Tag } from 'antd';
@@ -23,11 +24,24 @@ const HeaderBlock = () => {
   return (
     <div style={{ padding: '16px 16px', borderBottom: '1px solid #ccc' }}>
       <div
-        style={{ display: 'flex', justifyContent: 'flex-end' }}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '4px',
+          justifyContent: 'flex-end',
+        }}
         onClick={showDrawer}
       >
         <AppstoreTwoTone />
         更多系统
+        <Button
+          type="link"
+          onClick={() => {
+            loginOut();
+          }}
+        >
+          logout
+        </Button>
       </div>
       <Drawer
         title="Basic Drawer"
