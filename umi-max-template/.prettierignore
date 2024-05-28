@@ -1,7 +1,3 @@
 node_modules
 .umi
 .umi-production
-logs
-run
-dist
-yarn-error.log

@@ -1,0 +1,34 @@
+{
+  "nameSpace": "tw-sub",
+  "appName": "子应用模板",
+  "entryEnv": {
+    "dev": "//dev.bysking.cc/tw-sub",
+    "test": "//test.bysking.cc/tw-sub",
+    "prod": "//prod.bysking.cc/tw-sub",
+    "local": "//localhost:8008/"
+  },
+  "linkApps": [
+
+  ],
+  "menuRoute": [
+    {
+      "path": "/",
+      "redirect": "/home"
+    },
+    {
+      "name": "首页",
+      "path": "/home",
+      "component": "./Home"
+    },
+    {
+      "name": "权限演示",
+      "path": "/access",
+      "component": "./Access"
+    },
+    {
+      "name": " CRUD 示例",
+      "path": "/table",
+      "component": "./Table"
+    }
+  ]
+}
