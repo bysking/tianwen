@@ -1,0 +1,41 @@
+{
+  "private": true,
+  "author": "bysking",
+  "name": "tianwen-ui",
+  "scripts": {
+    "dev": "max dev",
+    "analyze": "cross-env ANALYZE=1 max build",
+    "build:prod": "cross-env UMI_ENV=prod max build",
+    "build:dev": "cross-env UMI_ENV=dev max build",
+    "build:test": "cross-env UMI_ENV=test max build",
+    "build:stage": "cross-env UMI_ENV=stage max build",
+    "format": "prettier --cache --write .",
+    "prepare": "husky",
+    "postinstall": "max setup",
+    "setup": "max setup",
+    "start": "npm run dev",
+    "startssl": "cross-env SOCKET_SERVER=https://localhost:8000/ PORT=8000 UMI_ENV=local max dev"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.0.1",
+    "@ant-design/pro-components": "^2.4.4",
+    "@umijs/max": "^4.1.9",
+    "antd": "^5.4.0",
+    "query-string": "^9.0.0",
+    "react-monaco-editor": "^0.55.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.33",
+    "@types/react-dom": "^18.0.11",
+    "cross-env": "^7.0.3",
+    "husky": "^9",
+    "lint-staged": "^13.2.0",
+    "prettier": "^2.8.7",
+    "prettier-plugin-organize-imports": "^3.2.2",
+    "prettier-plugin-packagejson": "^2.4.3",
+    "typescript": "^5.0.3"
+  },
+  "peerDependencies": {
+    "cross-env": "^7.0.3"
+  }
+}
