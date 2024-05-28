@@ -2,7 +2,9 @@
 import { defineConfig } from 'umi';
 import proxy from './proxy';
 import routes from './routes';
-// const { UMI_ENV } = process.env;
+import { getEnvConfig } from './tool';
+
+const { UMI_ENV } = process.env;
 
 export default defineConfig({
   hash: true,
@@ -41,5 +43,9 @@ export default defineConfig({
         ? 'notify-worker.js'
         : '[name].[contenthash].chunk.js';
     });
+  },
+  ...getEnvConfig(UMI_ENV || 'prod'),
+  define: {
+    UMI_ENV,
   },
 });

@@ -29,9 +29,4 @@ export default defineConfig({
       },
     });
   },
-  base: '/',
-  publicPath: '//cdn.bysking/tianwen-ui/',
-  define: {
-    'process.env.UMI_ENV': 'dev',
-  },
 });
